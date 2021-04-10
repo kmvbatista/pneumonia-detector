@@ -23,16 +23,17 @@ class Screen:
 
 
   def get_photo(self):
-    filename = self.get_file_name()
+    filename = self.get_file_name(('jpeg', '*.jpeg'))
     tk.Label(self.master, text="Arquivo "+filename).grid(row=4)
-    predict(filename)
+    self.predict(filename)
 
   def predict(self, photo_path):
+    print(photo_path)
     prediction = self.model.predict_image_from_path(photo_path)
     self.showResults(prediction)
     self.show_image(photo_path)
 
-  def showResults(self, prediction, imagePath):
+  def showResults(self, prediction):
     tk.Label(self.master, text=f"A imagem é {prediction}").grid(row=5)
     
   def show_image(self, imagePath):
@@ -49,7 +50,7 @@ class Screen:
     self.model = Model(modelPath)
 
   def get_weights(self):
-    filename = self.get_file_name()
+    filename = self.get_file_name(('h5', '*.h5'))
     self.model.load_weights(filename)
      
   def setUpInputLabels(self):
@@ -58,8 +59,8 @@ class Screen:
     tk.Label(self.master, text="Qual foto?").grid(row=3)
   
 
-  def get_file_name(self,):
-    return filedialog.askopenfilename(filetypes=(('jpeg', '*.jpeg'), ('All files', '.*')))
+  def get_file_name(self, fileType: tuple):
+    return filedialog.askopenfilename(filetypes=(fileType, ('All files', '.*')))
 
 root = tk.Tk()
 
