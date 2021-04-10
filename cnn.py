@@ -85,7 +85,7 @@ classificador.fit_generator(base_treinamento, steps_per_epoch=4000/32,
                             epochs=5, validation_data = base_teste, 
                             validation_steps = 1000/32)
 
-classificador.save('./modelo')
+classificador.save('./model')
 
 classificador.save_weights(f"./weights_checkpoints/{datetime.now().strftime('%d-%m-%Y-%H:%M:%S')}.h5")
 

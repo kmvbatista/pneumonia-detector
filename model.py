@@ -1,4 +1,4 @@
-from keras.preprocessing import image
+from keras.preprocessing import image as keras_image
 from keras import models
 import numpy as np
 from PIL import Image
@@ -12,7 +12,7 @@ class Model:
 
   def __formatar_image(self, image):
     image = image.resize((64,64), Image.LINEAR)
-    image = image.img_to_array(image)
+    image = keras_image.img_to_array(image)
     image = image/255
     image = np.expand_dims(image, axis = 0)
     return image
