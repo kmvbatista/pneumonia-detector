@@ -1,2 +1,2 @@
-# Simples detectore de pneumonia com Keras
-Dataset disponível em https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia
+# Simple pneumonia detector using Keras
+Dataset available in https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia
