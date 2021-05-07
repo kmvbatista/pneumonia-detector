@@ -4,34 +4,26 @@ import numpy as np
 from PIL import Image
 
 
-model = models.load_model('./modelo')
+model = models.load_model('./model')
 
-def carregar_imagem(caminho):
+def load_image(caminho):
   return Image.open(caminho).convert('RGB')
 
-def formatar_imagem(imagem):
-  imagem = imagem.resize((64,64), Image.LINEAR)
-  imagem = image.img_to_array(imagem)
-  imagem /= 255
-  imagem = np.expand_dims(imagem, axis = 0)
-  return imagem
+def formatImage(image):
+  image = image.resize((64,64), Image.LINEAR)
+  image = image.img_to_array(image)
+  image /= 255
+  image = np.expand_dims(image, axis = 0)
+  return image
 
-imagem_normal = carregar_imagem('chest_xray_dataset/train/NORMAL/NORMAL2-IM-0540-0001.jpeg')
+normal_image = load_image('chest_xray_dataset/test/NORMAL/IM-0001-0001.jpeg')
 
-imagem_pneumonia = carregar_imagem('chest_xray_dataset/train/PNEUMONIA/person878_bacteria_2801.jpeg')
+image_pneumonia = load_image('chest_xray_dataset/test/PNEUMONIA/person1_virus_6.jpeg')
 
-#alterar o formato da imagem de teste
+normal_image = formatImage(normal_image)
+image_pneumonia = formatImage(image_pneumonia)
 
-
-#ver os valores de cada pixel de image_teste
-#normalizando esses valores na escala de 0 - 1
-imagem_normal = formatar_imagem(imagem_normal)
-imagem_pneumonia = formatar_imagem(imagem_pneumonia)
-
-#alterando o formato para o tensor flow adicionando mais uma coluna
-
-#realizado essas configurações já podemos realizar a previsão
-previsao_normal = model.predict(imagem_normal)
-previsao_pneumonia = model.predict(imagem_pneumonia)
-print(previsao_normal)
-print(previsao_pneumonia)
+normal_prediction = model.predict(normal_image)
+pneumonia_prediction = model.predict(image_pneumonia)
+print(normal_prediction)
+print(pneumonia_prediction)
